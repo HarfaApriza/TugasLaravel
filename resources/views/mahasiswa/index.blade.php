@@ -5,48 +5,45 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header" style="background: #D8BFD8" >Data Mahasiswa 
-                 <a href="{{ route ('tambah.data') }}" class="btn btn-primary" class="text-right" style="float:right">Tambah Data</a>
-                 </div>
+                <div class="card-header">Data Mahasiswa
+
+                <a href="{{ route('tambah.mahasiswa') }}" class="btn btn-md btn-primary float-right">Tambah Data</a>
+                </div>
 
                 <div class="card-body">
-
-                        <div class="table-responsive">
-
-
-                        <table class="table table-bordered">
-
-
-                        <tr>
-                            <th>NO</th>
+                    <table class="table table-bordered">
+                        <tr bgcolor="#00BFFF">
+                            <th>NO.</th>
+                            <th>NPM</th>
                             <th>NAMA LENGKAP</th>
-                            <th>TEMPAT,TANGGAL LAHIR</th>
+                            <th>TEMPAT, TANGGAL LAHIR</th>
+                            <th>JENIS KELAMIN</th>
                             <th>TELEPON</th>
                             <th>ALAMAT</th>
-                            <th>JENIS KELAMIN</th>
-                            <th>PHOTO</th>
                             <th>AKSI</th>
-
                         </tr>
+                        @php
+                            $no = 1;
+                        @endphp
+
                         @foreach ($mahasiswa as $mhs)
+                        <tr bgcolor="#483D8B">
+                            <td>{{ $no++}}</td>
+                            <td>{{ $mhs->npm }}</td>
+                            <th>{{ $mhs->user->name}}</th>
+                            <td>{{ $mhs->tempat_lahir.', '. $mhs->tgl_lahir }}</td>
+                            <td>{{ $mhs->gender == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                            <td>{{ $mhs->telepon }}</td>
+                            <td>{{ $mhs->alamat }}</td>
+                            <td>
+                                <a href="{{ route('edit.mahasiswa', $mhs->id) }}" class="btn btn-sm btn-warning">EDIT</a>
+                                <a href="{{ route('hapus.mahasiswa', $mhs->id) }}" class="btn btn-sm btn-danger">HAPUS</a>
+                
+                            </td>
+                        </tr>
 
-
-                    <tr>
-                        <td>{{ $mhs->id }}</td>
-                        <td>{{ $mhs->user->name}} </td>
-                        <td>{{ $mhs->tempat_lahir.','. $mhs->tgl_lahir }}</td>
-                        <td>{{ $mhs->telepon }}</td>
-                        <td>{{ $mhs->alamat }}</td>
-                        <td>{{ $mhs->gender }}</td>
-                        <td></td>
-                        <td>
-                            <a href="{{ route ('mahasiswa.edit' , $mhs->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                            <a href="{{ route ('hapus.data' , $mhs->id) }}" class="btn btn-sm btn-danger">HAPUS</a>
-
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>
